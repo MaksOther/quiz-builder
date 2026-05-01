@@ -105,7 +105,7 @@ export default function QuizLibrary() {
                   href={`/quizzes/${item.id}`}
                   className="text-xs font-bold text-zinc-500 hover:text-white uppercase tracking-widest"
                 >
-                  Open →
+                  Open
                 </Link>
                 <Link
                   href={`/quizzes/${item.id}/edit`}
@@ -117,7 +117,7 @@ export default function QuizLibrary() {
                   onClick={() => dropItem(item.id)}
                   className="text-[10px] font-mono text-zinc-800 hover:text-red-900 uppercase underline decoration-zinc-800"
                 >
-                  Drop
+                  DEL
                 </button>
               </div>
             </div>

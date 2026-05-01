@@ -31,7 +31,12 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
 
-  const { register, control, handleSubmit } = useForm<FormType>({
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormType>({
     resolver: zodResolver(schema),
     defaultValues: initialData || {
       title: "",
@@ -117,6 +122,11 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
             {...register("title")}
             className="w-full bg-transparent border-b border-zinc-800 py-2 text-xl text-white outline-none focus:border-indigo-500 transition-colors"
           />
+          {errors.title && (
+            <p className="text-[10px] font-mono text-red-500 mt-2 uppercase">
+              Min 3 characters required
+            </p>
+          )}
         </div>
 
         <div className="space-y-4">
@@ -132,7 +142,7 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
                   onClick={() => remove(idx)}
                   className="absolute top-4 right-4 text-[10px] font-mono text-zinc-700 hover:text-red-500 uppercase"
                 >
-                  [Drop]
+                  [DEL]
                 </button>
                 <div className="grid gap-6 sm:grid-cols-12">
                   <div className="sm:col-span-8">
@@ -143,6 +153,11 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
                       {...register(`questions.${idx}.text`)}
                       className="w-full bg-[#0a0a0a] border border-zinc-900 rounded-sm px-3 py-2 text-sm outline-none"
                     />
+                    {errors.questions?.[idx]?.text && (
+                      <p className="text-[10px] font-mono text-red-500 mt-1 uppercase">
+                        Min 3 characters required
+                      </p>
+                    )}
                   </div>
                   <div className="sm:col-span-4">
                     <label className="block text-[10px] font-mono text-zinc-600 uppercase mb-1">
@@ -170,6 +185,12 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
               </div>
             );
           })}
+
+          {errors.questions?.root && (
+            <p className="text-[10px] font-mono text-red-500 uppercase">
+              Add at least one question
+            </p>
+          )}
         </div>
 
         <div className="flex justify-between items-center pt-10">
@@ -187,7 +208,7 @@ export default function QuizForm({ initialData, id }: QuizFormProps) {
             disabled={pending}
             className="bg-zinc-100 text-black px-10 py-3 rounded-sm font-bold text-sm uppercase transition-opacity disabled:opacity-50"
           >
-            {pending ? "Writing..." : "Save_Changes"}
+            {pending ? "Writing" : "Save_Changes"}
           </button>
         </div>
       </form>
