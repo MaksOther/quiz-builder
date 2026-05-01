@@ -88,21 +88,4 @@ App runs at `http://localhost:3000`
 | `/quizzes/:id`      | Quiz detail view      |
 | `/quizzes/:id/edit` | Edit a quiz           |
 
-## Sample Quiz
-
-```bash
-curl -X POST http://localhost:3001/quizzes \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "General Knowledge",
-    "questions": [
-      { "text": "Is the Earth round?", "type": "boolean" },
-      { "text": "What is the capital of France?", "type": "input" },
-      {
-        "text": "Which are primary colors?",
-        "type": "checkbox",
-        "options": ["Red", "Green", "Blue", "Yellow"]
-      }
-    ]
-  }'
 ```
